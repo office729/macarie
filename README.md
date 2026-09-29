@@ -1,45 +1,23 @@
-# Ieromonahul Macarie
+# Macarie Ieromonahul
 
-Site Next.js (App Router) + Supabase, pregătit pentru deploy pe Vercel.
+Site-ul grupului psaltic Macarie Ieromonahul: pagini publice (HTML static) + funcții serverless Node.js (`api/`) + un dashboard de administrare (`admin/`). Fără build step — fișierele se deployează direct pe Vercel.
 
-## 1. Rulare locală
+## Structură
 
-```bash
-npm install
-npm run dev
-```
+- `index.html`, `magazin.html`, `agenda.html`, `sinaxar.html`, `contact.html`, `despre.html`, `parteneri.html`, `sprijina.html`, `redirect-20.html`, `redirect-35.html` — paginile publice.
+- `admin/` — dashboard-ul de administrare (SPA, un singur `index.html` cu HTML+CSS+JS simplu).
+- `api/` — funcții serverless (formulare, donații, CRUD pentru conținutul editabil din dashboard).
+- `assets/` — JS/imagini partajate între pagini.
+- `lib/` — cod comun folosit de funcțiile din `api/` (conexiune DB, autentificare).
 
-## 2. Configurare Supabase
+## Bază de date
 
-1. Creează un proiect nou pe [supabase.com/dashboard](https://supabase.com/dashboard).
-2. În Supabase Dashboard → SQL Editor, rulează conținutul din [`supabase/schema.sql`](supabase/schema.sql) ca să creezi tabelul `cuvinte`.
-3. Din Project Settings → API, copiază `Project URL` și `anon public key`.
-4. Copiază `.env.example` în `.env.local` și completează:
+Supabase (Postgres). Schema e creată/actualizată automat de `lib/db.js` la prima cerere.
 
-```bash
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-```
-
-## 3. Deploy pe Vercel
-
-1. Urcă acest folder ca repo pe GitHub (vezi mai jos).
-2. Pe [vercel.com/new](https://vercel.com/new), importă repo-ul — Vercel detectează automat Next.js.
-3. La pasul "Environment Variables", adaugă aceleași două variabile ca mai sus (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
-4. Deploy.
-
-### Urcare pe GitHub
+## Deploy
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin <URL_REPO_GITHUB>
-git push -u origin main
+vercel deploy --yes           # preview
 ```
 
-## Conținut de completat
-
-- [`src/app/page.tsx`](src/app/page.tsx) — biografie și cuvânt introductiv (marcate cu `TODO`).
-- Adaugă rânduri în tabelul `cuvinte` din Supabase (Table Editor) pentru a popula secțiunea „Cuvinte de folos”.
+Promovarea în producție se face din Vercel (Deployments → Promote to Production), ca să ruleze cu variabilele de mediu de producție (`DATABASE_URL` etc.).

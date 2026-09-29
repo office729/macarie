@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redirecționează 3,5% — Macarie Ieromonahul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: #EFE7D8; }
+  body { font-family: Manrope, sans-serif; color: #1B1610; }
+  a { color: #8A6520; text-decoration: none; }
+  a:hover { color: #B8873B; }
+  ::selection { background: #1B1610; color: #EFE7D8; }
+  img { max-width: 100%; }
+  @keyframes ison { 0%,100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* keeps a #hash target from landing flush under the sticky header */
+  :target { scroll-margin-top: 90px; }
+
+  /* mobile nav (hamburger) — shared by every page */
+  header { position: relative; }
+  .nav-toggle { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 8px; border: 1px solid rgba(27,22,16,0.18); background: transparent; cursor: pointer; color: #1B1610; flex-shrink: 0; }
+  .nav-toggle:hover { border-color: #B8873B; }
+  @media (max-width: 880px) {
+    header { flex-wrap: wrap; row-gap: 10px; }
+    .nav-toggle { display: flex; }
+    .site-nav { display: none !important; position: absolute; top: 100%; left: 0; right: 0; background: #EFE7D8; flex-direction: column !important; align-items: flex-start !important; gap: 2px !important; padding: 8px 20px 18px !important; border-bottom: 1px solid rgba(27,22,16,0.12); box-shadow: 0 12px 24px -12px rgba(27,22,16,0.25); z-index: 70; max-height: 72vh; overflow-y: auto; }
+    .site-nav.open { display: flex !important; }
+    .site-nav a { width: 100%; padding-top: 12px !important; padding-bottom: 12px !important; }
+    .nav-dropdown { width: 100%; }
+    .nav-dropdown-toggle { width: 100%; justify-content: space-between; padding-top: 12px !important; padding-bottom: 12px !important; }
+    .nav-dropdown-panel { position: static !important; box-shadow: none !important; border: none !important; margin-top: 0 !important; min-width: 0 !important; background: transparent !important; }
+    .nav-dropdown-panel a { padding-left: 28px !important; }
+  }
+
+  /* "Implică-te" nav dropdown */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-toggle:hover { color: #B8873B; }
+  .nav-dropdown-panel { display: none; position: absolute; top: 100%; right: 0; margin-top: 6px; background: #FBF8F0; border: 1px solid rgba(27,22,16,0.1); border-radius: 10px; box-shadow: 0 16px 32px -12px rgba(27,22,16,0.25); width: max-content; min-width: 220px; max-width: min(280px, 92vw); z-index: 80; overflow: hidden; }
+  .nav-dropdown-panel.open { display: block; }
+  .nav-dropdown-panel a:last-child { border-bottom: none !important; }
+  .nav-dropdown-panel a:hover { background: rgba(184,135,59,0.1); color: #8A6520; }
+
+  /* details-based collapsible filter groups (shop sidebar) */
+  details.filter-group summary { cursor: pointer; list-style: none; }
+  details.filter-group summary::-webkit-details-marker { display: none; }
+  details.filter-group summary .chev { transition: transform .2s ease; }
+  details.filter-group[open] summary .chev { transform: rotate(180deg); }
+
+  /* footer — every page has the same 4-column grid (brand / meniu / client /
+     implică-te) with no breakpoint at all in the original, so on a phone it
+     just squeezed 4 columns down to ~90px each: the brand column (address +
+     phone + email + a row of social icons) never fit, forcing the whole
+     page to scroll sideways instead of the footer stacking. */
+  footer > div:first-child { grid-template-columns: 1.3fr 0.8fr 0.8fr 0.9fr; }
+  @media (max-width: 760px) {
+    footer { padding-left: 28px !important; padding-right: 28px !important; }
+    footer > div:first-child { grid-template-columns: 1fr 1fr !important; row-gap: 30px !important; }
+    footer > div:first-child > div:first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 460px) {
+    footer > div:first-child { grid-template-columns: 1fr !important; }
+    footer > div:first-child > div:first-child { grid-column: auto; }
+  }
+
+html, body { margin:0; padding:0; background:#EFE7D8; }
+  * { box-sizing:border-box; }
+  a { color:#8A6520; text-decoration:none; }
+  a:hover { color:#B8873B; }
+  @media (max-width: 480px) { h1 { font-size: 32px !important; } }
+  .fill-me { border-bottom:1.5px dashed #B8873B; color:#8A6520; }
+  .f230-card { padding:26px; background:#FBF8F0; border:1px solid rgba(27,22,16,0.12); border-radius:12px; margin-bottom:18px; }
+  .f230-h3 { margin:0 0 6px; font-family:'Cormorant Garamond', serif; font-weight:500; font-size:20px; color:#1B1610; }
+  .f230-hint { margin:0 0 18px; font-size:13px; color:#8A8072; }
+  .f230-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .f230-field { display:flex; flex-direction:column; gap:6px; font-size:12.5px; font-weight:600; color:#40372B; }
+  .f230-field input { padding:12px 14px; border-radius:8px; border:1px solid rgba(27,22,16,0.18); font-size:14px; font-family:Manrope, sans-serif; color:#1B1610; background:#fff; }
+  .f230-field input:focus { outline:2px solid #B8873B; outline-offset:1px; }
+  .f230-check { display:flex; align-items:flex-start; gap:10px; font-size:13.5px; line-height:1.5; color:#40372B; margin-bottom:12px; }
+  .f230-check input { margin-top:3px; }
+  @media (max-width: 560px) { .f230-grid-2 { grid-template-columns:1fr; } }
+
+.hk-redirect35-1:hover { background: #1EBE59; }
+</style>
+</head>
+<body>
+<div style="background: #EFE7D8; font-family: Manrope, sans-serif; color: #1B1610">
+
+  <header style="position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 36px; background: rgba(239,231,216,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(27,22,16,0.12); flex-wrap: wrap">
+    <a href="index.html" style="display: flex; align-items: center; gap: 15px">
+      <span style="display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #EFE7D8; border: 1px solid rgba(184,135,59,0.4); overflow: hidden"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/6xaJSlACEQAAAAEAABZ/anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFllqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjBlNTBjYWE5LTViYTItNGJkNC1iMzk1LTNiNjhlYjI2ZTg5NQAAAAOUanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuWp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNotNWH8EdykcOMI38v+FGBpgAAAG1jYm9yo2lkYzpmb3JtYXRqaW1hZ2UvanBlZ2ppbnN0YW5jZUlEeCx4bXA6aWlkOjk2ZDU2ZjY1LWU4NmItNGE2YS05YzZjLWY0NzYwZmE4NTQ2MmxyZWxhdGlvbnNoaXBocGFyZW50T2YAAAHianVtYgAAAEFqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmFjdGlvbnMudjIAAAAAGGMyc2gTvNzcdpuNmpwIRRzJG1bRAAABmWNib3KiZ2FjdGlvbnOComZhY3Rpb25rYzJwYS5vcGVuZWRqcGFyYW1ldGVyc6FraW5ncmVkaWVudHOBomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCDfp5gFGSotFXo4LZQTTq3YB+wBKb1dYxMJAc6CkjQ+7qRmYWN0aW9ueB1jb20uYW50aHJvcGljLmNsYXVkZS5wcm92aWRlZGpwYXJhbWV0ZXJzoXgfY29tLmFudGhyb3BpYy5vcmlnaW4tY29uZmlkZW5jZWd1bmtub3dua2Rlc2NyaXB0aW9ueGZDbGF1ZGUgcHJvdmlkZWQgdGhpcyBmaWxlIGF0IHRoZSByZXF1ZXN0IG9mIGEgdXNlciBhbmQgbWF5IGhhdmUgY3JlYXRlZCBvciBtb2RpZmllZCB0aGUgZmlsZSBjb250ZW50cy5tc29mdHdhcmVBZ2VudKFkbmFtZWZDbGF1ZGVyYWxsQWN0aW9uc0luY2x1ZGVk9QAAAMhqdW1iAAAAQGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaGFzaC5kYXRhAAAAABhjMnNoCkmGiLGgaqh5MZwT4pMQDAAAAIBjYm9ypWNhbGdmc2hhMjU2Y3BhZE4AAAAAAAAAAAAAAAAAAGRoYXNoWCCZrqeCHc6Tw7g/9DPZ4mH7zSgkmV8VqA+gbvjIr1KWDGRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBRmbGVuZ3RoGRaLAAACPmp1bWIAAAAnanVtZGMyY2wAEQAQgAAAqgA4m3EDYzJwYS5jbGFpbS52MgAAAAIPY2JvcqVjYWxnZnNoYTI1NmlzaWduYXR1cmV4TXNlbGYjanVtYmY9L2MycGEvdXJuOmMycGE6MGU1MGNhYTktNWJhMi00YmQ0LWIzOTUtM2I2OGViMjZlODk1L2MycGEuc2lnbmF0dXJlamluc3RhbmNlSUR4LHhtcDppaWQ6Njg1MjY1ZGItMDY2MC00N2EwLTkxYTQtYzEwZTc0NTViMTg1cmNyZWF0ZWRfYXNzZXJ0aW9uc4OiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIN+nmAUZKi0VejgtlBNOrdgH7AEpvV1jEwkBzoKSND7uomN1cmx4KnNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuYWN0aW9ucy52MmRoYXNoWCB0Lze6un4bJNL+dwX5AZd/Im3p4tIusOBTYJAiIuJ8HKJjdXJseClzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmhhc2guZGF0YWRoYXNoWCDEoIDexMGep4iSRsxLeMWpuYZcp7t9h8smtFQdIEvM1HRjbGFpbV9nZW5lcmF0b3JfaW5mb6NkbmFtZW9BbnRocm9waWMgRmlsZXNndmVyc2lvbmUxLjAuMGtzcGVjVmVyc2lvbmUyLjQuMAAAEDhqdW1iAAAAKGp1bWRjMmNzABEAEIAAAKoAOJtxA2MycGEuc2lnbmF0dXJlAAAAEAhjYm9y0oRZAhKiASYYIVkCCjCCAgYwggGNoAMCAQICFEDloAruwjnQvriD+gZCBT1nVRMAMAoGCCqGSM49BAMDMEkxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMS4wLAYDVQQDEyVBbnRocm9waWMgQ29udGVudCBDcmVkZW50aWFscyBSb290IENBMB4XDTI2MDgwNzE4NDM1NloXDTI4MDgwNjE5NDM1NlowRDEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxKTAnBgNVBAMTIEFudGhyb3BpYyBDbGF1ZGUgQ29udGVudCBTaWduaW5nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmHoKa8tQGAUU1TS9QqU5W0Tp2N3XsvlK7BfQt6YWKwEzd2R3/dzKPEUDdCjlLjp9fT+KFjRVnuZ9v0oXvTe3k6NYMFYwDgYDVR0PAQH/BAQDAgeAMBUGA1UdJQQOMAwGCisGAQQBg+heAgEwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBTOUeIEgU5kWyP448TPmj6cwddcwjAKBggqhkjOPQQDAwNnADBkAjAxcx0UngF60stVjs5G4T2eiptsBk5mf9oCtfJPAUBl8qs/PEXa8+gk1/X5QJ2DVcYCMHBfXN31YapiSqYvlIWrDVDJKOvXMl+kkz37Wt0PBI8sw486Mq6JeOhT+lRR4b1HCaFjcGFkWQ2eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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" alt="Sigla grupului" style="width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; filter: sepia(0.7) saturate(2.2) hue-rotate(-12deg) brightness(0.92) contrast(1.05)"></span>
+      <span style="display: flex; flex-direction: column; line-height: 1.15">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; white-space: nowrap">Macarie Ieromonahul</span>
+        <span style="font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #8A6520; white-space: nowrap">Grup psaltic · Suceava</span>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-label="Deschide meniul" aria-expanded="false"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4.5H16M2 9H16M2 13.5H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><nav class="site-nav" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+      <a href="despre.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Despre noi</a>
+      <a href="index.html#asculta" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Ascultă</a>
+      <a href="magazin.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Magazin</a>
+      <a href="agenda.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Agendă</a>
+      <a href="sinaxar.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Sinaxar</a>
+      <a href="parteneri.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Parteneri</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" style="display: flex; align-items: center; gap: 5px; padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #8A6520; font-weight: 600; white-space: nowrap; background: transparent; border: none; cursor: pointer; font-family: Manrope, sans-serif">Implică-te<svg width="10" height="10" viewBox="0 0 10 10" fill="none" style="flex-shrink: 0"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-dropdown-panel">
+          <a href="redirect-35.html" style="display: block; padding: 11px 16px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: normal; border-bottom: 1px solid rgba(27,22,16,0.08)">Direcționează 3,5% (persoane fizice)</a>
+          <a href="redirect-20.html" style="display: block; padding: 11px 16px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: normal; border-bottom: 1px solid rgba(27,22,16,0.08)">Direcționează 20% (firme)</a>
+          <a href="sprijina.html#sp-body" style="display: block; padding: 11px 16px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: normal; border-bottom: 1px solid rgba(27,22,16,0.08)">Donează direct</a>
+        </div>
+      </div>
+      <a href="contact.html" style="padding: 10px 14px; border-radius: 999px; font-size: 13.5px; color: #40372B; font-weight: 600; white-space: nowrap">Contact</a>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <section style="padding: 64px 36px 32px; max-width: 760px; margin: 0 auto">
+    <span style="display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(184,135,59,0.12); color: #8A6520; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase">Formularul 230 · gratuit</span>
+    <h1 style="margin: 18px 0 0; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(34px,5vw,54px); line-height: 1.08; text-wrap: pretty">Direcționează 3,5% din impozitul pe venit</h1>
+    <p style="margin: 20px 0 0; font-size: 16.5px; line-height: 1.75; color: #4A4033; text-wrap: pretty">Grupul Psaltic Macarie Ieromonahul este o organizație non-guvernamentală. Legea îți permite să direcționezi 3,5% din impozitul pe venitul datorat statului către o asociație — fără costuri pentru tine. Statul primește aceeași sumă; tu decizi unde se duce.</p>
+  </section>
+
+  <!-- quick links -->
+  <section style="padding: 0 36px 32px; max-width: 760px; margin: 0 auto">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px">
+      <a href="https://www.anaf.ro/" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #FBF8F0; border: 1px solid rgba(27,22,16,0.12); border-radius: 12px; color: #1B1610">
+        <span style="display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(184,135,59,0.14); color: #8A6520; flex-shrink: 0; font-size: 16px">↗</span>
+        <span style="font-size: 14.5px; font-weight: 600">Completează online (ANAF)</span>
+      </a>
+      <a href="https://static.anaf.ro/static/10/Anaf/formulare/230_OPANAF_103_2025.pdf" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #FBF8F0; border: 1px solid rgba(27,22,16,0.12); border-radius: 12px; color: #1B1610">
+        <span style="display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(184,135,59,0.14); color: #8A6520; flex-shrink: 0; font-size: 16px">⬇</span>
+        <span style="font-size: 14.5px; font-weight: 600">Descarcă formularul 230 (PDF oficial ANAF)</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- date asociatie -->
+  <section style="padding: 0 36px 48px; max-width: 760px; margin: 0 auto">
+    <div style="padding: 22px 24px; background: #FBF8F0; border: 1px solid rgba(27,22,16,0.12); border-radius: 12px">
+      <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6520; margin-bottom: 12px">Datele asociației, pentru secțiunea „II. Destinația sumei"</div>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14.5px">
+        <span><strong>Denumire:</strong> Asociația pentru Muzică și Artă Sacră (Grupul Psaltic Macarie Ieromonahul)</span>
+        <span><strong>CIF:</strong> 23570175</span>
+        <span><strong>Cont bancar (IBAN):</strong> RO39BTRL03401205I41972XX</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- formular online -->
+  <section style="padding: 0 36px 56px; max-width: 760px; margin: 0 auto">
+    <h2 style="margin: 0 0 6px; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 28px">Completează formularul 230</h2>
+    <p style="margin: 0 0 28px; font-size: 14.5px; line-height: 1.65; color: #5A5041">Toate câmpurile de mai jos, pe o singură pagină — date personale, adresă, acord și semnătură. La final primești un fișier PDF cu datele tale, gata de trimis către noi sau de depus tu însuți.</p>
+
+    <form id="f230-form" novalidate>
+      <div class="f230-card">
+        <h3 class="f230-h3">Date personale</h3>
+        <p class="f230-hint">Ai nevoie de CNP-ul așa cum apare în cartea de identitate.</p>
+        <div class="f230-grid-2">
+          <label class="f230-field"><span>Nume *</span><input required name="nume" type="text" placeholder="Popescu"></label>
+          <label class="f230-field"><span>Prenume *</span><input required name="prenume" type="text" placeholder="Ion"></label>
+          <label class="f230-field"><span>Inițiala tatălui</span><input name="initiala" type="text" placeholder="ex. V"></label>
+          <label class="f230-field"><span>CNP *</span><input required name="cnp" type="text" inputmode="numeric" maxlength="13" placeholder="1234567890123"></label>
+          <label class="f230-field"><span>Email *</span><input required name="email" type="email" placeholder="nume@exemplu.ro"></label>
+          <label class="f230-field"><span>Telefon *</span><input required name="telefon" type="tel" placeholder="07xx xxx xxx"></label>
+        </div>
+      </div>
+
+      <div class="f230-card">
+        <h3 class="f230-h3">Adresa de domiciliu</h3>
+        <p class="f230-hint">Completează doar câmpurile care se aplică adresei tale.</p>
+        <div class="f230-grid-2">
+          <label class="f230-field"><span>Strada *</span><input required name="strada" type="text" placeholder="ex. Str. Florilor"></label>
+          <label class="f230-field"><span>Număr *</span><input required name="numar" type="text" placeholder="12"></label>
+          <label class="f230-field"><span>Județ *</span><input required name="judet" type="text" placeholder="Suceava"></label>
+          <label class="f230-field"><span>Localitate *</span><input required name="localitate" type="text" placeholder="Vornicenii Mici"></label>
+          <label class="f230-field"><span>Cod poștal *</span><input required name="codpostal" type="text" placeholder="727xxx"></label>
+          <label class="f230-field"><span>Bloc</span><input name="bloc" type="text" placeholder="–"></label>
+          <label class="f230-field"><span>Scara</span><input name="scara" type="text" placeholder="–"></label>
+          <label class="f230-field"><span>Apartament</span><input name="apartament" type="text" placeholder="–"></label>
+        </div>
+      </div>
+
+      <div class="f230-card">
+        <h3 class="f230-h3">Acord și semnătură</h3>
+        <p class="f230-hint">Bifează acordul și semnează în casetă.</p>
+        <label class="f230-check">
+          <input type="checkbox" name="distribuire2ani">
+          <span>Distribuirea sumei timp de 2 ani</span>
+        </label>
+        <label class="f230-check">
+          <input required type="checkbox" name="gdpr">
+          <span>Sunt de acord cu prelucrarea datelor conform Politicii de confidențialitate (GDPR) — folosite exclusiv pentru completarea formularului 230.</span>
+        </label>
+        <div style="margin-top: 16px">
+          <span style="display: block; font-size: 12.5px; font-weight: 600; color: #40372B; margin-bottom: 8px">Semnătura ta</span>
+          <canvas id="f230-signature" width="600" height="160" style="width: 100%; max-width: 420px; height: 130px; border: 1px solid rgba(27,22,16,0.22); border-radius: 8px; background: #fff; touch-action: none; cursor: crosshair; display: block"></canvas>
+          <button type="button" id="f230-clear-sig" style="margin-top: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(27,22,16,0.22); background: transparent; color: #5A5041; font-size: 12.5px; cursor: pointer; font-family: Manrope, sans-serif">Șterge semnătura</button>
+        </div>
+        <div style="margin-top: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+          <button type="submit" id="f230-submit" style="padding: 15px 28px; border-radius: 999px; border: none; background: #1B1610; color: #EFE7D8; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: Manrope, sans-serif">Generează PDF-ul meu</button>
+          <span id="f230-status" style="font-size: 13px; color: #5A5041"></span>
+        </div>
+        <p style="margin: 14px 0 0; font-size: 12px; line-height: 1.6; color: #8A8072">Datele sunt trimise Grupului Psaltic Macarie Ieromonahul, exclusiv pentru completarea formularului 230, conform acordului GDPR de mai sus. Primești și tu un PDF cu recapitularea, descărcat direct pe acest dispozitiv.</p>
+      </div>
+    </form>
+  </section>
+
+  <!-- cta -->
+  <section style="padding: 0 36px 96px; max-width: 760px; margin: 0 auto">
+    <div style="display: flex; flex-wrap: wrap; gap: 14px; padding: 36px; background: #1B1610; color: #EFE7D8; border-radius: 12px">
+      <div style="flex-grow: 1; min-width: 220px">
+        <h3 style="margin: 0 0 8px; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 26px">Ai nevoie de ajutor?</h3>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(239,231,216,0.65)">Scrie-ne dacă ai nelămuriri sau vrei să-ți trimitem noi formularul completat.</p>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap">
+        <a href="https://wa.me/40741934707" target="_blank" rel="noopener" style="padding: 15px 26px; border-radius: 999px; background: #E3BE72; color: #1B1610; font-size: 13.5px; font-weight: 600">WhatsApp</a>
+        <a href="mailto:gabrielmaxemiuc@yahoo.com" style="padding: 15px 26px; border-radius: 999px; border: 1px solid rgba(239,231,216,0.35); color: #EFE7D8; font-size: 13.5px; font-weight: 600">Scrie-ne</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #15110C; color: #EFE7D8; padding: 56px 36px 30px 36px">
+    <div style="max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 0.8fr 0.8fr 0.9fr; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span style="display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #EFE7D8; overflow: hidden; flex-shrink: 0">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/6xaJSlACEQAAAAEAABZ/anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFllqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjBlNTBjYWE5LTViYTItNGJkNC1iMzk1LTNiNjhlYjI2ZTg5NQAAAAOUanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuWp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNotNWH8EdykcOMI38v+FGBpgAAAG1jYm9yo2lkYzpmb3JtYXRqaW1hZ2UvanBlZ2ppbnN0YW5jZUlEeCx4bXA6aWlkOjk2ZDU2ZjY1LWU4NmItNGE2YS05YzZjLWY0NzYwZmE4NTQ2MmxyZWxhdGlvbnNoaXBocGFyZW50T2YAAAHianVtYgAAAEFqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmFjdGlvbnMudjIAAAAAGGMyc2gTvNzcdpuNmpwIRRzJG1bRAAABmWNib3KiZ2FjdGlvbnOComZhY3Rpb25rYzJwYS5vcGVuZWRqcGFyYW1ldGVyc6FraW5ncmVkaWVudHOBomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCDfp5gFGSotFXo4LZQTTq3YB+wBKb1dYxMJAc6CkjQ+7qRmYWN0aW9ueB1jb20uYW50aHJvcGljLmNsYXVkZS5wcm92aWRlZGpwYXJhbWV0ZXJzoXgfY29tLmFudGhyb3BpYy5vcmlnaW4tY29uZmlkZW5jZWd1bmtub3dua2Rlc2NyaXB0aW9ueGZDbGF1ZGUgcHJvdmlkZWQgdGhpcyBmaWxlIGF0IHRoZSByZXF1ZXN0IG9mIGEgdXNlciBhbmQgbWF5IGhhdmUgY3JlYXRlZCBvciBtb2RpZmllZCB0aGUgZmlsZSBjb250ZW50cy5tc29mdHdhcmVBZ2VudKFkbmFtZWZDbGF1ZGVyYWxsQWN0aW9uc0luY2x1ZGVk9QAAAMhqdW1iAAAAQGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaGFzaC5kYXRhAAAAABhjMnNoCkmGiLGgaqh5MZwT4pMQDAAAAIBjYm9ypWNhbGdmc2hhMjU2Y3BhZE4AAAAAAAAAAAAAAAAAAGRoYXNoWCCZrqeCHc6Tw7g/9DPZ4mH7zSgkmV8VqA+gbvjIr1KWDGRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBRmbGVuZ3RoGRaLAAACPmp1bWIAAAAnanVtZGMyY2wAEQAQgAAAqgA4m3EDYzJwYS5jbGFpbS52MgAAAAIPY2JvcqVjYWxnZnNoYTI1NmlzaWduYXR1cmV4TXNlbGYjanVtYmY9L2MycGEvdXJuOmMycGE6MGU1MGNhYTktNWJhMi00YmQ0LWIzOTUtM2I2OGViMjZlODk1L2MycGEuc2lnbmF0dXJlamluc3RhbmNlSUR4LHhtcDppaWQ6Njg1MjY1ZGItMDY2MC00N2EwLTkxYTQtYzEwZTc0NTViMTg1cmNyZWF0ZWRfYXNzZXJ0aW9uc4OiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIN+nmAUZKi0VejgtlBNOrdgH7AEpvV1jEwkBzoKSND7uomN1cmx4KnNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuYWN0aW9ucy52MmRoYXNoWCB0Lze6un4bJNL+dwX5AZd/Im3p4tIusOBTYJAiIuJ8HKJjdXJseClzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmhhc2guZGF0YWRoYXNoWCDEoIDexMGep4iSRsxLeMWpuYZcp7t9h8smtFQdIEvM1HRjbGFpbV9nZW5lcmF0b3JfaW5mb6NkbmFtZW9BbnRocm9waWMgRmlsZXNndmVyc2lvbmUxLjAuMGtzcGVjVmVyc2lvbmUyLjQuMAAAEDhqdW1iAAAAKGp1bWRjMmNzABEAEIAAAKoAOJtxA2MycGEuc2lnbmF0dXJlAAAAEAhjYm9y0oRZAhKiASYYIVkCCjCCAgYwggGNoAMCAQICFEDloAruwjnQvriD+gZCBT1nVRMAMAoGCCqGSM49BAMDMEkxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMS4wLAYDVQQDEyVBbnRocm9waWMgQ29udGVudCBDcmVkZW50aWFscyBSb290IENBMB4XDTI2MDgwNzE4NDM1NloXDTI4MDgwNjE5NDM1NlowRDEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxKTAnBgNVBAMTIEFudGhyb3BpYyBDbGF1ZGUgQ29udGVudCBTaWduaW5nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmHoKa8tQGAUU1TS9QqU5W0Tp2N3XsvlK7BfQt6YWKwEzd2R3/dzKPEUDdCjlLjp9fT+KFjRVnuZ9v0oXvTe3k6NYMFYwDgYDVR0PAQH/BAQDAgeAMBUGA1UdJQQOMAwGCisGAQQBg+heAgEwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBTOUeIEgU5kWyP448TPmj6cwddcwjAKBggqhkjOPQQDAwNnADBkAjAxcx0UngF60stVjs5G4T2eiptsBk5mf9oCtfJPAUBl8qs/PEXa8+gk1/X5QJ2DVcYCMHBfXN31YapiSqYvlIWrDVDJKOvXMl+kkz37Wt0PBI8sw486Mq6JeOhT+lRR4b1HCaFjcGFkWQ2eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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" alt="Sigla grupului" style="width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; filter: sepia(0.7) saturate(2.2) hue-rotate(-12deg) brightness(0.92) contrast(1.05)">
+          </span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 19px">Macarie Ieromonahul</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; color: rgba(239,231,216,0.55)">Str. Humorului nr. 4<br>Vornicenii Mici, Suceava</p>
+        <a href="tel:+40741934707" style="font-size: 13.5px; color: rgba(239,231,216,0.8)">0741 934 707</a>
+        <a href="mailto:gabrielmaxemiuc@yahoo.com" style="font-size: 13.5px; color: rgba(239,231,216,0.8)">gabrielmaxemiuc@yahoo.com</a>
+        <div style="display: flex; gap: 9px; margin-top: 2px">
+          <a href="https://www.facebook.com/GrupulPsaltic.M.I/" aria-label="Facebook" style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(227,190,114,0.35); color: rgba(239,231,216,0.8)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 9H16V6h-2.5C11.6 6 10 7.6 10 9.5V11H8v3h2v7h3v-7h2.2l.8-3H13v-1.2c0-.5.4-.8.7-.8z"></path></svg>
+          </a>
+          <a href="https://www.youtube.com/channel/UCK4gCwcPXXcR25kEh7hhRzA" aria-label="YouTube" style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(227,190,114,0.35); color: rgba(239,231,216,0.8)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.5s-.2-1.6-.8-2.3c-.8-.9-1.7-.9-2.1-1C16.6 5 12 5 12 5h0s-4.6 0-7.1.2c-.4.1-1.3.1-2.1 1C2.2 6.9 2 8.5 2 8.5S1.8 10.4 1.8 12.3v1.8c0 1.9.2 3.8.2 3.8s.2 1.6.8 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.3.2 7.3.2s4.6 0 7.1-.2c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.3.8-2.3s.2-1.9.2-3.8v-1.8c0-1.9-.2-3.8-.2-3.8zM9.9 15.5v-6l5.6 3-5.6 3z"></path></svg>
+          </a>
+          <a href="https://wa.me/40741934707" aria-label="WhatsApp" style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(227,190,114,0.35); color: rgba(239,231,216,0.8)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.6-1-1.3-1.4-2 -.1-.2 0-.4.1-.5.2-.2.4-.4.5-.6.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.2.3-.9 1-.9 2.3 0 1.3 1 2.6 1.1 2.8.1.2 1.7 2.7 4.2 3.7 2 .8 2.4.7 2.9.6.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4 0-.1-.1-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5-1.5C8.4 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"></path></svg>
+          </a>
+          <a href="https://www.instagram.com/" aria-label="Instagram" style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(227,190,114,0.35); color: rgba(239,231,216,0.8)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a href="https://www.tiktok.com/@gpmacarieieromonahul" aria-label="TikTok" style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(227,190,114,0.35); color: rgba(239,231,216,0.8)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2 1.7 3.6 3.9 3.9v2.6c-1.4 0-2.7-.4-3.9-1.2v6.4c0 3-2.4 5.3-5.3 5.3S5.9 17.7 5.9 14.7s2.4-5.3 5.3-5.3c.3 0 .6 0 .9.1v2.7c-.3-.1-.6-.2-.9-.2-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7V3h2.6z"></path></svg>
+          </a>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h4 style="margin: 0 0 2px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #E3BE72">Meniu</h4>
+        <a href="index.html#asculta" style="font-size: 14px; color: rgba(239,231,216,0.7)">Ascultă</a>
+        <a href="despre.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Despre noi</a>
+        <a href="magazin.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Magazin</a>
+        <a href="agenda.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Agendă</a>
+        <a href="sinaxar.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Sinaxar</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h4 style="margin: 0 0 2px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #E3BE72">Client</h4>
+        <a href="#" style="font-size: 14px; color: rgba(239,231,216,0.7)">Contul meu</a>
+        <a href="magazin.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Coș</a>
+        <a href="#" style="font-size: 14px; color: rgba(239,231,216,0.7)">Termeni și condiții</a>
+        <a href="https://reclamatiisal.anpc.ro" target="_blank" rel="noopener" style="display:inline-block; margin-top:2px;"><img src="/assets/anpc-sal.svg" alt="ANPC - Soluționarea Alternativă a Litigiilor (SAL)" width="140" height="35" style="display:block; width:140px; height:auto;"></a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h4 style="margin: 0 0 2px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #E3BE72">Implică-te</h4>
+        <a href="redirect-35.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Direcționează 3,5%</a>
+        <a href="redirect-20.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Direcționează 20%</a>
+        <a href="sprijina.html" style="font-size: 14px; color: rgba(239,231,216,0.7)">Donează</a>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 7px 11px; border-radius: 999px; border: 1px solid rgba(239,231,216,0.14); width: fit-content; font-size: 11px; color: rgba(239,231,216,0.55)">EuPlătesc · Visa · Mastercard</div>
+      </div>
+    </div>
+    <div style="max-width: 940px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid rgba(239,231,216,0.1); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: rgba(239,231,216,0.4)">
+      <span>© 2026 Grupul Psaltic Macarie Ieromonahul</span>
+      <a href="#" style="color: rgba(227,190,114,0.75)">Înapoi sus ↑</a>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/40741934707" aria-label="Scrie-ne pe WhatsApp" class="hk-redirect35-1" style="position: fixed; right: 22px; bottom: 22px; z-index: 80; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #25D366; color: #FFFFFF; box-shadow: 0 6px 18px rgba(0,0,0,0.25)">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.6-1-1.3-1.4-2 -.1-.2 0-.4.1-.5.2-.2.4-.4.5-.6.1-.2.1-.4 0-.6-.1-.2-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4-.2 0-.4 0-.6 0-.2 0-.5.1-.7.3-.2.3-.9 1-.9 2.3 0 1.3 1 2.6 1.1 2.8.1.2 1.7 2.7 4.2 3.7 2 .8 2.4.7 2.9.6.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4 0-.1-.1-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5-1.5C8.4 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"></path></svg>
+  </a>
+
+<script>
+
+// Pages embed large inline base64 images, so the browser's automatic
+// scroll-to-#hash on load often fires before those images finish decoding
+// and shifting the layout down — landing short of the actual target. Redo
+// the scroll once every image has settled.
+if (location.hash) {
+  const scrollToHash = () => {
+    const el = document.querySelector(location.hash);
+    if (el) el.scrollIntoView({ block: 'start' });
+  };
+  if (document.readyState === 'complete') scrollToHash();
+  else window.addEventListener('load', scrollToHash);
+}
+
+document.querySelectorAll('.nav-toggle').forEach(btn => {
+  const nav = btn.nextElementSibling;
+  if (!nav || !nav.classList.contains('site-nav')) return;
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+});
+
+document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+  const panel = btn.nextElementSibling;
+  if (!panel || !panel.classList.contains('nav-dropdown-panel')) return;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+});
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.nav-dropdown-panel.open').forEach(p => {
+    if (!p.parentElement.contains(e.target)) p.classList.remove('open');
+  });
+});
+
+</script>
+<script>
+
+// signature pad
+const canvas = document.getElementById('f230-signature');
+// keep the pad's pixel aspect equal to its on-screen aspect, so the saved signature is not stretched
+(function () { const r = canvas.getBoundingClientRect(); if (r.width > 0 && r.height > 0) canvas.height = Math.round(canvas.width * r.height / r.width); })();
+const ctx = canvas.getContext('2d');
+ctx.lineWidth = 3;
+ctx.lineCap = 'round';
+ctx.strokeStyle = '#1B1610';
+let drawing = false, hasSignature = false;
+function pos(e) {
+  const r = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / r.width, scaleY = canvas.height / r.height;
+  const p = e.touches ? e.touches[0] : e;
+  return { x: (p.clientX - r.left) * scaleX, y: (p.clientY - r.top) * scaleY };
+}
+function start(e) { drawing = true; hasSignature = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
+function move(e) { if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }
+function end() { drawing = false; }
+canvas.addEventListener('mousedown', start);
+canvas.addEventListener('mousemove', move);
+window.addEventListener('mouseup', end);
+canvas.addEventListener('touchstart', start, { passive: false });
+canvas.addEventListener('touchmove', move, { passive: false });
+canvas.addEventListener('touchend', end);
+document.getElementById('f230-clear-sig').addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasSignature = false;
+});
+
+document.getElementById('f230-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const status = document.getElementById('f230-status');
+  const btn = document.getElementById('f230-submit');
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+  if (!hasSignature) { status.textContent = 'Semnează în casetă înainte de a trimite formularul.'; return; }
+
+  const fd = new FormData(form);
+  const d = Object.fromEntries(fd.entries());
+  d.distribuire2ani = fd.has('distribuire2ani');
+  const signatureData = canvas.toDataURL('image/png');
+
+  btn.disabled = true; btn.textContent = 'Se trimite...';
+  status.style.color = '';
+  status.textContent = '';
+  let saved = false;
+  for (let attempt = 0; attempt < 2 && !saved; attempt++) {
+    try {
+      const res = await fetch('/api/f230', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({}, d, { signature: signatureData })),
+      });
+      const out = await res.json().catch(() => ({}));
+      saved = res.ok && out.stored !== false;
+      if (!saved && res.status >= 400 && res.status < 500) break;
+    } catch (err) { /* network error - retried once below */ }
+    if (!saved && attempt === 0) await new Promise(r => setTimeout(r, 1500));
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  let y = 56;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+  doc.text('Formularul 230 — date de completat', 48, y); y += 28;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+  doc.text('Recapitulare generată de pe site-ul Macarie Ieromonahul, pentru a fi transcrisă în formularul oficial ANAF.', 48, y, { maxWidth: 500 }); y += 30;
+
+  function line(label, value) {
+    doc.setFont('helvetica', 'bold'); doc.text(label + ':', 48, y);
+    doc.setFont('helvetica', 'normal'); doc.text(String(value || '—'), 200, y);
+    y += 20;
+  }
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Date personale', 48, y); y += 20;
+  doc.setFontSize(10);
+  line('Nume', d.nume); line('Prenume', d.prenume); line('Inițiala tatălui', d.initiala);
+  line('CNP', d.cnp); line('Email', d.email); line('Telefon', d.telefon);
+  y += 10;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Adresă', 48, y); y += 20;
+  doc.setFontSize(10);
+  line('Strada', d.strada); line('Număr', d.numar); line('Județ', d.judet);
+  line('Localitate', d.localitate); line('Cod poștal', d.codpostal);
+  line('Bloc / Scară / Ap.', [d.bloc, d.scara, d.apartament].filter(Boolean).join(' / ') || '—');
+  y += 10;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Destinație', 48, y); y += 20;
+  doc.setFontSize(10);
+  line('Asociație', 'Grupul Psaltic Macarie Ieromonahul');
+  line('Distribuire 2 ani', d.distribuire2ani ? 'Da' : 'Nu');
+  y += 10;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Semnătură', 48, y); y += 12;
+  const sigH = 60; doc.addImage(canvas.toDataURL('image/png'), 'PNG', 48, y, Math.round(sigH * canvas.width / canvas.height), sigH);
+
+  doc.save('formular-230-' + (d.nume || 'recapitulare').toLowerCase() + '.pdf');
+  if (saved) {
+    status.style.color = '';
+    status.textContent = 'Trimis! Ai primit și un PDF cu recapitularea, gata de depus prin SPV.';
+    btn.textContent = 'Trimis ✓';
+  } else {
+    status.style.color = '#B03A3A';
+    status.textContent = 'Atenție: PDF-ul s-a descărcat, dar datele tale NU au ajuns la asociație. Încearcă din nou peste câteva minute sau scrie-ne pe WhatsApp la 0741 934 707.';
+    btn.disabled = false;
+    btn.textContent = 'Încearcă din nou';
+  }
+});
+
+</script>
+<script src="/assets/site-links.js" defer></script>
+</body>
+</html>

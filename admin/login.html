@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autentificare · Dashboard Macarie Ieromonahul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; background:#1B1610; font-family:Manrope,sans-serif; color:#EFE7D8; height:100%; }
+  body { display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { width:100%; max-width:380px; background:#241D15; border:1px solid rgba(227,190,114,0.18); border-radius:16px; padding:36px 32px; }
+  .logo { width:52px; height:52px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #E3BE72, #6E1E25 78%); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px; color:#2A1213; margin:0 auto 18px; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px; text-align:center; margin:0 0 4px; }
+  p.sub { text-align:center; color:rgba(239,231,216,0.55); font-size:13px; margin:0 0 28px; }
+  label { display:block; font-size:12.5px; font-weight:600; color:rgba(239,231,216,0.75); margin-bottom:8px; }
+  input { width:100%; padding:13px 14px; border-radius:8px; border:1px solid rgba(239,231,216,0.2); background:rgba(239,231,216,0.06); color:#EFE7D8; font-size:14.5px; font-family:Manrope,sans-serif; }
+  input:focus { outline:2px solid #E3BE72; outline-offset:1px; }
+  button { width:100%; margin-top:20px; padding:13px; border-radius:999px; border:none; background:#E3BE72; color:#1B1610; font-weight:700; font-size:14px; cursor:pointer; font-family:Manrope,sans-serif; }
+  button:disabled { opacity:0.6; cursor:default; }
+  .error { color:#E08A8A; font-size:13px; margin-top:14px; text-align:center; min-height:16px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">M</div>
+    <h1>Macarie Ieromonahul</h1>
+    <p class="sub">Autentificare dashboard</p>
+    <form id="login-form">
+      <label for="password">Parolă</label>
+      <input id="password" type="password" required autofocus>
+      <button type="submit" id="submit-btn">Autentifică-te</button>
+      <div class="error" id="error"></div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const err = document.getElementById('error');
+      btn.disabled = true; btn.textContent = 'Se verifică...'; err.textContent = '';
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: document.getElementById('password').value }),
+        });
+        const data = await res.json();
+        if (res.ok) { window.location.href = '/admin/'; return; }
+        err.textContent = data.error || 'Autentificare eșuată.';
+      } catch (e2) {
+        err.textContent = 'Eroare de conexiune.';
+      }
+      btn.disabled = false; btn.textContent = 'Autentifică-te';
+    });
+  </script>
+</body>
+</html>
